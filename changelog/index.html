@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog — Clayflow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        clay: {
+                            bg: '#E8E8F0',
+                            card: '#F0F0F8',
+                            dark: '#D8D8E4',
+                            accent: '#6C5CE7',
+                            accentLight: '#A29BFE',
+                            warm: '#FD79A8',
+                            mint: '#00CEC9',
+                            sun: '#FDCB6E',
+                            text: '#2D2D3F',
+                            muted: '#6B6B80',
+                        }
+                    }
+                }
+            }
+        }
+        // Glow cursor
+        const glow = document.getElementById('cursorGlow');
+        let mx = -100, my = -100;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; glow.style.left = mx + 'px'; glow.style.top = my + 'px'; });
+        document.querySelectorAll('a, button, [role="button"], input, select, label, summary').forEach(el => {
+            el.addEventListener('mouseenter', () => glow.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => glow.classList.remove('hovering'));
+        });
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #E8E8F0; }
+        .clay { background: #F0F0F8; border-radius: 24px; box-shadow: 8px 8px 16px rgba(163,163,180,0.5), -8px -8px 16px rgba(255,255,255,0.8), inset 2px 2px 4px rgba(255,255,255,0.6), inset -2px -2px 4px rgba(163,163,180,0.3); }
+        .clay-sm { background: #F0F0F8; border-radius: 16px; box-shadow: 6px 6px 12px rgba(163,163,180,0.5), -6px -6px 12px rgba(255,255,255,0.8), inset 2px 2px 3px rgba(255,255,255,0.6), inset -1px -1px 3px rgba(163,163,180,0.25); }
+        .clay-xs { background: #F0F0F8; border-radius: 12px; box-shadow: 4px 4px 8px rgba(163,163,180,0.4), -4px -4px 8px rgba(255,255,255,0.7), inset 1px 1px 2px rgba(255,255,255,0.5), inset -1px -1px 2px rgba(163,163,180,0.2); }
+        .clay-pill { background: #F0F0F8; border-radius: 50px; box-shadow: 4px 4px 8px rgba(163,163,180,0.4), -4px -4px 8px rgba(255,255,255,0.7), inset 1px 1px 2px rgba(255,255,255,0.5), inset -1px -1px 2px rgba(163,163,180,0.2); }
+        .clay-accent { background: linear-gradient(135deg, #6C5CE7, #A29BFE); border-radius: 16px; box-shadow: 6px 6px 12px rgba(108,92,231,0.35), -6px -6px 12px rgba(162,155,254,0.2), inset 2px 2px 4px rgba(255,255,255,0.25), inset -2px -2px 4px rgba(108,92,231,0.3); }
+        .clay-warm { background: linear-gradient(135deg, #FD79A8, #FDCB6E); border-radius: 16px; box-shadow: 6px 6px 12px rgba(253,121,168,0.3), -6px -6px 12px rgba(253,203,110,0.15), inset 2px 2px 4px rgba(255,255,255,0.3), inset -2px -2px 4px rgba(253,121,168,0.25); }
+        .clay-mint { background: linear-gradient(135deg, #00CEC9, #81ECEC); border-radius: 16px; box-shadow: 6px 6px 12px rgba(0,206,201,0.3), -6px -6px 12px rgba(129,236,236,0.15), inset 2px 2px 4px rgba(255,255,255,0.3), inset -2px -2px 4px rgba(0,206,201,0.25); }
+        .clay-btn { background: linear-gradient(135deg, #6C5CE7, #7C6CF7); border-radius: 14px; box-shadow: 6px 6px 14px rgba(108,92,231,0.4), -4px -4px 10px rgba(255,255,255,0.6), inset 2px 2px 4px rgba(255,255,255,0.2), inset -2px -2px 4px rgba(108,92,231,0.3); transition: all 0.2s ease; }
+        .clay-btn:hover { box-shadow: 4px 4px 10px rgba(108,92,231,0.5), -3px -3px 8px rgba(255,255,255,0.5), inset 3px 3px 6px rgba(255,255,255,0.25), inset -2px -2px 4px rgba(108,92,231,0.35); transform: translateY(-1px); }
+        .clay-btn:active { transform: translateY(1px); }
+        .clay-btn-outline { background: #F0F0F8; border-radius: 14px; box-shadow: 6px 6px 14px rgba(163,163,180,0.5), -4px -4px 10px rgba(255,255,255,0.8), inset 2px 2px 4px rgba(255,255,255,0.6), inset -2px -2px 4px rgba(163,163,180,0.2); transition: all 0.2s ease; }
+        .clay-btn-outline:hover { transform: translateY(-1px); }
+        .clay-icon { background: linear-gradient(135deg, #6C5CE7, #A29BFE); border-radius: 16px; box-shadow: 4px 4px 8px rgba(108,92,231,0.3), -4px -4px 8px rgba(255,255,255,0.6), inset 1px 1px 3px rgba(255,255,255,0.3), inset -1px -1px 2px rgba(108,92,231,0.25); }
+        .clay-divider { height: 2px; background: #F0F0F8; box-shadow: inset 1px 1px 2px rgba(255,255,255,0.8), inset -1px -1px 2px rgba(163,163,180,0.3); border-radius: 2px; }
+        .clay-nav { background: rgba(240,240,248,0.85); backdrop-filter: blur(16px); border-radius: 20px; box-shadow: 6px 6px 14px rgba(163,163,180,0.45), -6px -6px 14px rgba(255,255,255,0.75), inset 1px 1px 3px rgba(255,255,255,0.6), inset -1px -1px 2px rgba(163,163,180,0.15); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        html { scroll-behavior: smooth; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #E8E8F0; }
+        ::-webkit-scrollbar-thumb { background: #D8D8E4; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C4C4D4; }
+        * { scrollbar-width: thin; scrollbar-color: #D8D8E4 #E8E8F0; }
+
+        /* Cursors */
+        a, button, [role="button"], input[type="submit"], label, summary, select, .cursor-point { cursor: pointer; }
+
+        /* Selection */
+        ::selection { background: #6C5CE7; color: #fff; }
+        ::-moz-selection { background: #6C5CE7; color: #fff; }
+
+        /* Glow cursor */
+        .cursor-glow {
+            position: fixed; pointer-events: none; z-index: 9999;
+            width: 80px; height: 80px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(113,113,122,0.4), rgba(113,113,122,0) 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.25s, height 0.25s, opacity 0.25s;
+            will-change: transform, left, top;
+        }
+        .cursor-glow.hovering { width: 140px; height: 140px; background: radial-gradient(circle, rgba(113,113,122,0.3), rgba(113,113,122,0) 70%); }
+
+        .sidebar-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 60;
+        }
+        .sidebar-overlay.active { opacity: 1; pointer-events: all; }
+        .mobile-sidebar {
+            position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+            background: #F0F0F8; z-index: 70;
+            transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -8px 0 24px rgba(163,163,180,0.4);
+            display: flex; flex-direction: column; padding: 1.5rem;
+        }
+        .mobile-sidebar.active { transform: translateX(0); }
+        .clay-blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.3; pointer-events: none; }
+        .clay-float { animation: clayFloat 6s ease-in-out infinite; }
+        @keyframes clayFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
+        .timeline-line { position: absolute; left: 23px; top: 48px; bottom: 0; width: 2px; background: #D8D8E4; }
+        .changelog-badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; }
+    </style>
+</head>
+<body class="min-h-screen text-[#2D2D3F] overflow-x-hidden">
+    <div class="clay-blob w-[500px] h-[500px] bg-purple-300 top-[-100px] left-[-150px] fixed"></div>
+    <div class="clay-blob w-[400px] h-[400px] bg-pink-200 top-[30%] right-[-100px] fixed"></div>
+    <div class="clay-blob w-[350px] h-[350px] bg-cyan-200 bottom-[-50px] left-[20%] fixed"></div>
+
+    <nav class="sticky top-4 z-50 mx-4 md:mx-8 mt-4">
+        <div class="clay-nav max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2">
+                <div class="clay-icon w-10 h-10 flex items-center justify-center">
+                    <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="text-xl font-bold text-[#2D2D3F]">Clayflow</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="/#features" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Features</a>
+                <a href="/#how-it-works" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">How It Works</a>
+                <a href="/#pricing" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Pricing</a>
+                <a href="/#testimonials" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Testimonials</a>
+            </div>
+            <div class="hidden md:flex items-center gap-3">
+                <a href="/login/" class="clay-btn-outline px-5 py-2.5 text-sm font-semibold text-[#2D2D3F]">Log In</a>
+                <a href="/signup/" class="clay-btn px-5 py-2.5 text-sm font-semibold text-white">Start Free Trial</a>
+            </div>
+            <button id="menuToggle" class="md:hidden clay-xs p-2">
+                <i data-lucide="menu" class="w-5 h-5 text-[#2D2D3F]"></i>
+            </button>
+        </div>
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebarOverlay" class="sidebar-overlay md:hidden"></div>
+        <!-- Mobile Sidebar -->
+        <div id="mobileSidebar" class="mobile-sidebar md:hidden">
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-2">
+                    <div class="clay-icon w-9 h-9 flex items-center justify-center">
+                        <i data-lucide="layers" class="w-4.5 h-4.5 text-white"></i>
+                    </div>
+                    <span class="text-lg font-bold">Clayflow</span>
+                </div>
+                <button id="sidebarClose" class="clay-xs p-2">
+                    <i data-lucide="x" class="w-5 h-5 text-[#2D2D3F]"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-3 flex-1">
+                <a href="/" class="clay-sm px-4 py-3 text-sm font-medium text-[#2D2D3F] flex items-center gap-3"><i data-lucide="home" class="w-4 h-4 text-[#6C5CE7]"></i>Home</a>
+                <a href="/#features" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="sparkles" class="w-4 h-4 text-[#6B6B80]"></i>Features</a>
+                <a href="/#how-it-works" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="route" class="w-4 h-4 text-[#6B6B80]"></i>How It Works</a>
+                <a href="/#pricing" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="tag" class="w-4 h-4 text-[#6B6B80]"></i>Pricing</a>
+                <a href="/#testimonials" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="heart" class="w-4 h-4 text-[#6B6B80]"></i>Testimonials</a>
+            </nav>
+            <div class="clay-divider my-4"></div>
+            <div class="flex flex-col gap-3">
+                <a href="/login/" class="clay-btn-outline w-full py-3 text-sm font-semibold text-[#2D2D3F] text-center">Log In</a>
+                <a href="/signup/" class="clay-btn w-full py-3 text-sm font-semibold text-white text-center">Start Free Trial</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 md:px-8 py-12">
+        <!-- Hero -->
+        <div class="reveal text-center mb-16">
+            <span class="clay-pill px-4 py-1.5 text-xs font-semibold text-[#6C5CE7] inline-block mb-4"><i data-lucide="file-clock" class="w-3.5 h-3.5 inline-block mr-1"></i> Changelog</span>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#2D2D3F] mb-4">What's new at Clayflow</h1>
+            <p class="text-lg text-[#6B6B80] max-w-2xl mx-auto mb-8">Follow along with every update, improvement, and fix shipped to the platform.</p>
+            <div class="flex items-center justify-center gap-3">
+                <a href="#" class="clay-btn px-6 py-3 text-sm font-semibold text-white"><i data-lucide="rss" class="w-4 h-4 inline-block mr-1.5"></i>Subscribe via RSS</a>
+                <a href="#" class="clay-btn-outline px-6 py-3 text-sm font-semibold text-[#2D2D3F]"><i data-lucide="mail" class="w-4 h-4 inline-block mr-1.5"></i>Email Updates</a>
+            </div>
+        </div>
+
+        <!-- Version Timeline -->
+        <div class="relative">
+            <div class="timeline-line"></div>
+
+            <!-- v2.5.0 -->
+            <div class="reveal relative pl-14 pb-16">
+                <div class="clay-accent absolute left-0 top-0 w-12 h-12 flex items-center justify-center text-white text-xs font-bold">2.5</div>
+                <div class="clay-sm p-6 md:p-8">
+                    <div class="flex items-start justify-between mb-4 flex-wrap gap-2">
+                        <div>
+                            <h2 class="text-xl font-bold text-[#2D2D3F]">v2.5.0 — Real-time Collaboration</h2>
+                            <p class="text-xs text-[#9B9BAF] mt-1">Released June 16, 2026</p>
+                        </div>
+                        <span class="changelog-badge bg-[#6C5CE7]/10 text-[#6C5CE7]">Latest</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4 text-[#6C5CE7]"></i> New Features</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Real-time multi-user editing on dashboards with presence indicators.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> New AI-powered report generator — describe what you need in natural language.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Custom role-based access controls for Enterprise plans.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="arrow-up" class="w-4 h-4 text-[#FDCB6E]"></i> Improvements</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#FDCB6E] mt-0.5">●</span> Dashboard load times improved by 40% with lazy-loading widgets.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#FDCB6E] mt-0.5">●</span> Mobile responsiveness across all core views.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#FDCB6E] mt-0.5">●</span> Search now supports fuzzy matching and advanced filters.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="bug" class="w-4 h-4 text-[#FD79A8]"></i> Fixes</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#FD79A8] mt-0.5">●</span> Fixed export-to-PDF truncation on multi-page reports.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#FD79A8] mt-0.5">●</span> Resolved webhook timeout issue for payloads exceeding 1MB.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#FD79A8] mt-0.5">●</span> Corrected timezone display in scheduled report emails.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v2.4.0 -->
+            <div class="reveal relative pl-14 pb-16">
+                <div class="clay-warm absolute left-0 top-0 w-12 h-12 flex items-center justify-center text-white text-xs font-bold">2.4</div>
+                <div class="clay-sm p-6 md:p-8">
+                    <div class="mb-4">
+                        <h2 class="text-xl font-bold text-[#2D2D3F]">v2.4.0 — Deeper Integrations</h2>
+                        <p class="text-xs text-[#9B9BAF] mt-1">Released May 28, 2026</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4 text-[#6C5CE7]"></i> New Features</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Native Slack integration — receive alerts, reports, and summaries in channels.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Salesforce connector — sync accounts, opportunities, and contacts bidirectionally.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> API endpoint for bulk data export (<code class="text-xs text-[#6C5CE7]">/v1/exports</code>).</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="arrow-up" class="w-4 h-4 text-[#FDCB6E]"></i> Improvements</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#FDCB6E] mt-0.5">●</span> Webhook retry logic with exponential backoff and dead-letter queue.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#FDCB6E] mt-0.5">●</span> OAuth token refresh now handled automatically in integrations.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="bug" class="w-4 h-4 text-[#FD79A8]"></i> Fixes</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#FD79A8] mt-0.5">●</span> Fixed CSV import failing on rows with special characters.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#FD79A8] mt-0.5">●</span> Resolved duplicate notification issue on recurring reports.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v2.3.0 -->
+            <div class="reveal relative pl-14 pb-16">
+                <div class="clay-mint absolute left-0 top-0 w-12 h-12 flex items-center justify-center text-white text-xs font-bold">2.3</div>
+                <div class="clay-sm p-6 md:p-8">
+                    <div class="mb-4">
+                        <h2 class="text-xl font-bold text-[#2D2D3F]">v2.3.0 — Analytics Overhaul</h2>
+                        <p class="text-xs text-[#9B9BAF] mt-1">Released April 14, 2026</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4 text-[#6C5CE7]"></i> New Features</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Completely redesigned analytics engine with custom metric builder.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Drill-down charts — click any data point to explore underlying records.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Scheduled report delivery via email, Slack, and webhook.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="arrow-up" class="w-4 h-4 text-[#FDCB6E]"></i> Improvements</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#FDCB6E] mt-0.5">●</span> Chart rendering performance improved by 60% on large datasets.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#FDCB6E] mt-0.5">●</span> New chart types: funnel, heatmap, and waterfall.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="bug" class="w-4 h-4 text-[#FD79A8]"></i> Fixes</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#FD79A8] mt-0.5">●</span> Fixed date range picker resetting on filter change.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#FD79A8] mt-0.5">●</span> Resolved currency formatting issues in multi-currency workspaces.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v2.2.0 -->
+            <div class="reveal relative pl-14 pb-16">
+                <div class="clay absolute left-0 top-0 w-12 h-12 flex items-center justify-center text-[#6C5CE7] text-xs font-bold">2.2</div>
+                <div class="clay-sm p-6 md:p-8">
+                    <div class="mb-4">
+                        <h2 class="text-xl font-bold text-[#2D2D3F]">v2.2.0 — Workflow Engine</h2>
+                        <p class="text-xs text-[#9B9BAF] mt-1">Released March 3, 2026</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4 text-[#6C5CE7]"></i> New Features</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Visual workflow builder with drag-and-drop action blocks.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Conditional logic (if/then/else) and loop support in workflows.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> 30+ pre-built workflow templates for common business processes.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="arrow-up" class="w-4 h-4 text-[#FDCB6E]"></i> Improvements</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#FDCB6E] mt-0.5">●</span> Workflow execution logs with real-time trace view.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#FDCB6E] mt-0.5">●</span> Parallel action execution for faster workflow completion.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v2.1.0 -->
+            <div class="reveal relative pl-14 pb-16">
+                <div class="clay absolute left-0 top-0 w-12 h-12 flex items-center justify-center text-[#6C5CE7] text-xs font-bold">2.1</div>
+                <div class="clay-sm p-6 md:p-8">
+                    <div class="mb-4">
+                        <h2 class="text-xl font-bold text-[#2D2D3F]">v2.1.0 — Security & Compliance</h2>
+                        <p class="text-xs text-[#9B9BAF] mt-1">Released January 20, 2026</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4 text-[#6C5CE7]"></i> New Features</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> SOC 2 Type II compliance — full audit log of all platform activity.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> SSO with SAML and OIDC support for Enterprise plans.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> IP allowlisting and session timeout policies.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="bug" class="w-4 h-4 text-[#FD79A8]"></i> Fixes</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#FD79A8] mt-0.5">●</span> Fixed session expiry not clearing cached data in some browsers.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#FD79A8] mt-0.5">●</span> Resolved 2FA setup flow hanging on certain mobile devices.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v2.0.0 -->
+            <div class="reveal relative pl-14 pb-4">
+                <div class="clay-accent absolute left-0 top-0 w-12 h-12 flex items-center justify-center text-white text-xs font-bold">2.0</div>
+                <div class="clay-sm p-6 md:p-8">
+                    <div class="mb-4">
+                        <h2 class="text-xl font-bold text-[#2D2D3F]">v2.0.0 — The Big Launch</h2>
+                        <p class="text-xs text-[#9B9BAF] mt-1">Released December 2, 2024</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <h3 class="text-sm font-semibold text-[#2D2D3F] mb-2 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4 text-[#6C5CE7]"></i> Major Features</h3>
+                            <ul class="space-y-1.5 text-sm text-[#6B6B80]">
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Completely redesigned UI with the claymorphic design system.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Unified dashboard — combine data from any source in one view.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> REST API v1 with full CRUD, webhooks, and rate limiting.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> 200+ native integrations with popular business tools.</li>
+                                <li class="flex items-start gap-2"><span class="text-[#00CEC9] mt-0.5">●</span> Team collaboration with real-time editing and comments.</li>
+                            </ul>
+                        </div>
+                        <div class="clay-divider my-3"></div>
+                        <p class="text-sm text-[#6B6B80] italic">v2.0.0 marked the public launch of the Clayflow platform. Previous versions were in private beta.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="py-16 px-4 md:px-8 border-t border-white/30">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="clay-icon w-10 h-10 flex items-center justify-center"><i data-lucide="layers" class="w-5 h-5 text-white"></i></div>
+                        <span class="text-lg font-bold">Clayflow</span>
+                    </div>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">Business operations, beautifully unified.</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/#features" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Features</a></li>
+                        <li><a href="/#pricing" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Pricing</a></li>
+                        <li><a href="/integrations/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Integrations</a></li>
+                        <li><a href="/changelog/" class="text-sm text-[#6C5CE7] font-semibold transition-colors">Changelog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/about/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">About</a></li>
+                        <li><a href="/blog/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Blog</a></li>
+                        <li><a href="/careers/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Careers</a></li>
+                        <li><a href="/contact/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/docs/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Documentation</a></li>
+                        <li><a href="/api/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">API Reference</a></li>
+                        <li><a href="/community/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Community</a></li>
+                        <li><a href="/status/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Status</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/privacy/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Privacy</a></li>
+                        <li><a href="/terms/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Terms</a></li>
+                        <li><a href="/security/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clay-divider mb-8"></div>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-[#9B9BAF]">© 2026 Clayflow Inc. All rights reserved.</p>
+                <div class="flex items-center gap-4">
+                    <a href="https://twitter.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/x.svg" class="w-4 h-4" alt="Twitter"></a>
+                    <a href="https://github.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/github_light.svg" class="w-4 h-4" alt="GitHub"></a>
+                    <a href="https://linkedin.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/linkedin.svg" class="w-4 h-4" alt="LinkedIn"></a>
+                    <a href="https://youtube.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/youtube.svg" class="w-4 h-4" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        });
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+            });
+        });
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => { entry.target.classList.add('visible'); }, index * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => observer.observe(el));
+
+    </script>
+</body>
+</html>

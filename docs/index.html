@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation — Clayflow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        clay: {
+                            bg: '#E8E8F0',
+                            card: '#F0F0F8',
+                            dark: '#D8D8E4',
+                            accent: '#6C5CE7',
+                            accentLight: '#A29BFE',
+                            warm: '#FD79A8',
+                            mint: '#00CEC9',
+                            sun: '#FDCB6E',
+                            text: '#2D2D3F',
+                            muted: '#6B6B80',
+                        }
+                    }
+                }
+            }
+        }
+        // Glow cursor
+        const glow = document.getElementById('cursorGlow');
+        let mx = -100, my = -100;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; glow.style.left = mx + 'px'; glow.style.top = my + 'px'; });
+        document.querySelectorAll('a, button, [role="button"], input, select, label, summary').forEach(el => {
+            el.addEventListener('mouseenter', () => glow.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => glow.classList.remove('hovering'));
+        });
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #E8E8F0; }
+        .clay { background: #F0F0F8; border-radius: 24px; box-shadow: 8px 8px 16px rgba(163,163,180,0.5), -8px -8px 16px rgba(255,255,255,0.8), inset 2px 2px 4px rgba(255,255,255,0.6), inset -2px -2px 4px rgba(163,163,180,0.3); }
+        .clay-sm { background: #F0F0F8; border-radius: 16px; box-shadow: 6px 6px 12px rgba(163,163,180,0.5), -6px -6px 12px rgba(255,255,255,0.8), inset 2px 2px 3px rgba(255,255,255,0.6), inset -1px -1px 3px rgba(163,163,180,0.25); }
+        .clay-xs { background: #F0F0F8; border-radius: 12px; box-shadow: 4px 4px 8px rgba(163,163,180,0.4), -4px -4px 8px rgba(255,255,255,0.7), inset 1px 1px 2px rgba(255,255,255,0.5), inset -1px -1px 2px rgba(163,163,180,0.2); }
+        .clay-pill { background: #F0F0F8; border-radius: 50px; box-shadow: 4px 4px 8px rgba(163,163,180,0.4), -4px -4px 8px rgba(255,255,255,0.7), inset 1px 1px 2px rgba(255,255,255,0.5), inset -1px -1px 2px rgba(163,163,180,0.2); }
+        .clay-accent { background: linear-gradient(135deg, #6C5CE7, #A29BFE); border-radius: 16px; box-shadow: 6px 6px 12px rgba(108,92,231,0.35), -6px -6px 12px rgba(162,155,254,0.2), inset 2px 2px 4px rgba(255,255,255,0.25), inset -2px -2px 4px rgba(108,92,231,0.3); }
+        .clay-warm { background: linear-gradient(135deg, #FD79A8, #FDCB6E); border-radius: 16px; box-shadow: 6px 6px 12px rgba(253,121,168,0.3), -6px -6px 12px rgba(253,203,110,0.15), inset 2px 2px 4px rgba(255,255,255,0.3), inset -2px -2px 4px rgba(253,121,168,0.25); }
+        .clay-mint { background: linear-gradient(135deg, #00CEC9, #81ECEC); border-radius: 16px; box-shadow: 6px 6px 12px rgba(0,206,201,0.3), -6px -6px 12px rgba(129,236,236,0.15), inset 2px 2px 4px rgba(255,255,255,0.3), inset -2px -2px 4px rgba(0,206,201,0.25); }
+        .clay-btn { background: linear-gradient(135deg, #6C5CE7, #7C6CF7); border-radius: 14px; box-shadow: 6px 6px 14px rgba(108,92,231,0.4), -4px -4px 10px rgba(255,255,255,0.6), inset 2px 2px 4px rgba(255,255,255,0.2), inset -2px -2px 4px rgba(108,92,231,0.3); transition: all 0.2s ease; }
+        .clay-btn:hover { box-shadow: 4px 4px 10px rgba(108,92,231,0.5), -3px -3px 8px rgba(255,255,255,0.5), inset 3px 3px 6px rgba(255,255,255,0.25), inset -2px -2px 4px rgba(108,92,231,0.35); transform: translateY(-1px); }
+        .clay-btn:active { transform: translateY(1px); }
+        .clay-btn-outline { background: #F0F0F8; border-radius: 14px; box-shadow: 6px 6px 14px rgba(163,163,180,0.5), -4px -4px 10px rgba(255,255,255,0.8), inset 2px 2px 4px rgba(255,255,255,0.6), inset -2px -2px 4px rgba(163,163,180,0.2); transition: all 0.2s ease; }
+        .clay-btn-outline:hover { transform: translateY(-1px); }
+        .clay-icon { background: linear-gradient(135deg, #6C5CE7, #A29BFE); border-radius: 16px; box-shadow: 4px 4px 8px rgba(108,92,231,0.3), -4px -4px 8px rgba(255,255,255,0.6), inset 1px 1px 3px rgba(255,255,255,0.3), inset -1px -1px 2px rgba(108,92,231,0.25); }
+        .clay-divider { height: 2px; background: #F0F0F8; box-shadow: inset 1px 1px 2px rgba(255,255,255,0.8), inset -1px -1px 2px rgba(163,163,180,0.3); border-radius: 2px; }
+        .clay-nav { background: rgba(240,240,248,0.85); backdrop-filter: blur(16px); border-radius: 20px; box-shadow: 6px 6px 14px rgba(163,163,180,0.45), -6px -6px 14px rgba(255,255,255,0.75), inset 1px 1px 3px rgba(255,255,255,0.6), inset -1px -1px 2px rgba(163,163,180,0.15); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        html { scroll-behavior: smooth; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #E8E8F0; }
+        ::-webkit-scrollbar-thumb { background: #D8D8E4; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C4C4D4; }
+        * { scrollbar-width: thin; scrollbar-color: #D8D8E4 #E8E8F0; }
+
+        /* Cursors */
+        a, button, [role="button"], input[type="submit"], label, summary, select, .cursor-point { cursor: pointer; }
+
+        /* Selection */
+        ::selection { background: #6C5CE7; color: #fff; }
+        ::-moz-selection { background: #6C5CE7; color: #fff; }
+
+        /* Glow cursor */
+        .cursor-glow {
+            position: fixed; pointer-events: none; z-index: 9999;
+            width: 80px; height: 80px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(113,113,122,0.4), rgba(113,113,122,0) 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.25s, height 0.25s, opacity 0.25s;
+            will-change: transform, left, top;
+        }
+        .cursor-glow.hovering { width: 140px; height: 140px; background: radial-gradient(circle, rgba(113,113,122,0.3), rgba(113,113,122,0) 70%); }
+
+        .sidebar-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 60;
+        }
+        .sidebar-overlay.active { opacity: 1; pointer-events: all; }
+        .mobile-sidebar {
+            position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+            background: #F0F0F8; z-index: 70;
+            transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -8px 0 24px rgba(163,163,180,0.4);
+            display: flex; flex-direction: column; padding: 1.5rem;
+        }
+        .mobile-sidebar.active { transform: translateX(0); }
+        .clay-blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.3; pointer-events: none; }
+        .clay-float { animation: clayFloat 6s ease-in-out infinite; }
+        @keyframes clayFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
+        .sidebar-link.active { color: #6C5CE7; font-weight: 600; }
+    </style>
+</head>
+<body class="min-h-screen text-[#2D2D3F] overflow-x-hidden">
+    <div class="clay-blob w-[500px] h-[500px] bg-purple-300 top-[-100px] left-[-150px] fixed"></div>
+    <div class="clay-blob w-[400px] h-[400px] bg-pink-200 top-[30%] right-[-100px] fixed"></div>
+    <div class="clay-blob w-[350px] h-[350px] bg-cyan-200 bottom-[-50px] left-[20%] fixed"></div>
+
+    <nav class="sticky top-4 z-50 mx-4 md:mx-8 mt-4">
+        <div class="clay-nav max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2">
+                <div class="clay-icon w-10 h-10 flex items-center justify-center">
+                    <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="text-xl font-bold text-[#2D2D3F]">Clayflow</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="/#features" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Features</a>
+                <a href="/#how-it-works" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">How It Works</a>
+                <a href="/#pricing" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Pricing</a>
+                <a href="/#testimonials" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Testimonials</a>
+            </div>
+            <div class="hidden md:flex items-center gap-3">
+                <a href="/login/" class="clay-btn-outline px-5 py-2.5 text-sm font-semibold text-[#2D2D3F]">Log In</a>
+                <a href="/signup/" class="clay-btn px-5 py-2.5 text-sm font-semibold text-white">Start Free Trial</a>
+            </div>
+            <button id="menuToggle" class="md:hidden clay-xs p-2">
+                <i data-lucide="menu" class="w-5 h-5 text-[#2D2D3F]"></i>
+            </button>
+        </div>
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebarOverlay" class="sidebar-overlay md:hidden"></div>
+        <!-- Mobile Sidebar -->
+        <div id="mobileSidebar" class="mobile-sidebar md:hidden">
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-2">
+                    <div class="clay-icon w-9 h-9 flex items-center justify-center">
+                        <i data-lucide="layers" class="w-4.5 h-4.5 text-white"></i>
+                    </div>
+                    <span class="text-lg font-bold">Clayflow</span>
+                </div>
+                <button id="sidebarClose" class="clay-xs p-2">
+                    <i data-lucide="x" class="w-5 h-5 text-[#2D2D3F]"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-3 flex-1">
+                <a href="/" class="clay-sm px-4 py-3 text-sm font-medium text-[#2D2D3F] flex items-center gap-3"><i data-lucide="home" class="w-4 h-4 text-[#6C5CE7]"></i>Home</a>
+                <a href="/#features" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="sparkles" class="w-4 h-4 text-[#6B6B80]"></i>Features</a>
+                <a href="/#how-it-works" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="route" class="w-4 h-4 text-[#6B6B80]"></i>How It Works</a>
+                <a href="/#pricing" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="tag" class="w-4 h-4 text-[#6B6B80]"></i>Pricing</a>
+                <a href="/#testimonials" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="heart" class="w-4 h-4 text-[#6B6B80]"></i>Testimonials</a>
+            </nav>
+            <div class="clay-divider my-4"></div>
+            <div class="flex flex-col gap-3">
+                <a href="/login/" class="clay-btn-outline w-full py-3 text-sm font-semibold text-[#2D2D3F] text-center">Log In</a>
+                <a href="/signup/" class="clay-btn w-full py-3 text-sm font-semibold text-white text-center">Start Free Trial</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 md:px-8 py-12">
+        <!-- Hero -->
+        <div class="reveal text-center mb-16">
+            <span class="clay-pill px-4 py-1.5 text-xs font-semibold text-[#6C5CE7] inline-block mb-4"><i data-lucide="book-open" class="w-3.5 h-3.5 inline-block mr-1"></i> Documentation</span>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#2D2D3F] mb-4">Everything you need to build with Clayflow</h1>
+            <p class="text-lg text-[#6B6B80] max-w-2xl mx-auto mb-8">Comprehensive guides, API references, tutorials, and FAQs to help you get the most out of our platform.</p>
+            <!-- Search -->
+            <div class="max-w-xl mx-auto relative">
+                <i data-lucide="search" class="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#9B9BAF]"></i>
+                <input type="text" placeholder="Search documentation..." class="clay-pill w-full pl-12 pr-5 py-3.5 text-sm text-[#2D2D3F] placeholder-[#9B9BAF] outline-none focus:shadow-[6px_6px_14px_rgba(108,92,231,0.2),-4px_-4px_10px_rgba(255,255,255,0.5)] transition-shadow">
+            </div>
+        </div>
+
+        <!-- Getting Started -->
+        <section id="getting-started" class="reveal mb-16">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="clay-accent w-10 h-10 flex items-center justify-center"><i data-lucide="rocket" class="w-5 h-5 text-white"></i></div>
+                <h2 class="text-2xl font-bold text-[#2D2D3F]">Getting Started</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <a href="#" class="clay-sm p-6 group hover:scale-[1.02] transition-all duration-200">
+                    <div class="clay-icon w-12 h-12 flex items-center justify-center mb-4"><i data-lucide="log-in" class="w-6 h-6 text-white"></i></div>
+                    <h3 class="text-lg font-semibold text-[#2D2D3F] mb-2 group-hover:text-[#6C5CE7] transition-colors">Quickstart Guide</h3>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">Get up and running in 10 minutes. Create your account, set up your workspace, and make your first API call.</p>
+                    <span class="text-xs text-[#6C5CE7] font-medium mt-4 inline-block">Read more →</span>
+                </a>
+                <a href="#" class="clay-sm p-6 group hover:scale-[1.02] transition-all duration-200">
+                    <div class="clay-icon w-12 h-12 flex items-center justify-center mb-4"><i data-lucide="settings" class="w-6 h-6 text-white"></i></div>
+                    <h3 class="text-lg font-semibold text-[#2D2D3F] mb-2 group-hover:text-[#6C5CE7] transition-colors">Platform Setup</h3>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">Configure your workspace, manage team members, and customize your billing and notifications.</p>
+                    <span class="text-xs text-[#6C5CE7] font-medium mt-4 inline-block">Read more →</span>
+                </a>
+                <a href="#" class="clay-sm p-6 group hover:scale-[1.02] transition-all duration-200">
+                    <div class="clay-icon w-12 h-12 flex items-center justify-center mb-4"><i data-lucide="shield" class="w-6 h-6 text-white"></i></div>
+                    <h3 class="text-lg font-semibold text-[#2D2D3F] mb-2 group-hover:text-[#6C5CE7] transition-colors">Authentication</h3>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">Learn about API keys, OAuth 2.0, SSO, and best practices for keeping your data secure.</p>
+                    <span class="text-xs text-[#6C5CE7] font-medium mt-4 inline-block">Read more →</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Guides -->
+        <section id="guides" class="reveal mb-16">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="clay-warm w-10 h-10 flex items-center justify-center"><i data-lucide="compass" class="w-5 h-5 text-white"></i></div>
+                <h2 class="text-2xl font-bold text-[#2D2D3F]">Guides</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="clay-sm p-6 group hover:scale-[1.01] transition-all duration-200">
+                    <div class="flex items-start gap-4">
+                        <div class="clay-xs w-12 h-12 flex items-center justify-center shrink-0"><i data-lucide="users" class="w-5 h-5 text-[#6C5CE7]"></i></div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-[#2D2D3F] mb-2">Team Collaboration</h3>
+                            <p class="text-sm text-[#6B6B80] leading-relaxed">Set up roles, permissions, and shared workspaces to collaborate effectively across your organization.</p>
+                            <div class="flex items-center gap-2 mt-3">
+                                <span class="clay-pill px-2.5 py-0.5 text-xs text-[#6C5CE7]">Intermediate</span>
+                                <span class="text-xs text-[#9B9BAF]">20 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-sm p-6 group hover:scale-[1.01] transition-all duration-200">
+                    <div class="flex items-start gap-4">
+                        <div class="clay-xs w-12 h-12 flex items-center justify-center shrink-0"><i data-lucide="workflow" class="w-5 h-5 text-[#6C5CE7]"></i></div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-[#2D2D3F] mb-2">Workflow Automation</h3>
+                            <p class="text-sm text-[#6B6B80] leading-relaxed">Create and manage automated workflows to streamline repetitive tasks and boost productivity.</p>
+                            <div class="flex items-center gap-2 mt-3">
+                                <span class="clay-pill px-2.5 py-0.5 text-xs text-[#6C5CE7]">Advanced</span>
+                                <span class="text-xs text-[#9B9BAF]">35 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-sm p-6 group hover:scale-[1.01] transition-all duration-200">
+                    <div class="flex items-start gap-4">
+                        <div class="clay-xs w-12 h-12 flex items-center justify-center shrink-0"><i data-lucide="database" class="w-5 h-5 text-[#6C5CE7]"></i></div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-[#2D2D3F] mb-2">Data Import & Export</h3>
+                            <p class="text-sm text-[#6B6B80] leading-relaxed">Migrate your existing data into Clayflow and export reports in CSV, JSON, and PDF formats.</p>
+                            <div class="flex items-center gap-2 mt-3">
+                                <span class="clay-pill px-2.5 py-0.5 text-xs text-[#6C5CE7]">Beginner</span>
+                                <span class="text-xs text-[#9B9BAF]">15 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-sm p-6 group hover:scale-[1.01] transition-all duration-200">
+                    <div class="flex items-start gap-4">
+                        <div class="clay-xs w-12 h-12 flex items-center justify-center shrink-0"><i data-lucide="bell" class="w-5 h-5 text-[#6C5CE7]"></i></div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-[#2D2D3F] mb-2">Notifications & Alerts</h3>
+                            <p class="text-sm text-[#6B6B80] leading-relaxed">Configure custom alert rules, webhook integrations, and notification channels for your team.</p>
+                            <div class="flex items-center gap-2 mt-3">
+                                <span class="clay-pill px-2.5 py-0.5 text-xs text-[#6C5CE7]">Beginner</span>
+                                <span class="text-xs text-[#9B9BAF]">12 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tutorials -->
+        <section id="tutorials" class="reveal mb-16">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="clay-mint w-10 h-10 flex items-center justify-center"><i data-lucide="graduation-cap" class="w-5 h-5 text-white"></i></div>
+                <h2 class="text-2xl font-bold text-[#2D2D3F]">Tutorials</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="clay-sm p-0 overflow-hidden group hover:scale-[1.02] transition-all duration-200">
+                    <div class="h-40 bg-gradient-to-br from-purple-400 to-pink-300 flex items-center justify-center">
+                        <i data-lucide="play-circle" class="w-12 h-12 text-white/80"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-[#6C5CE7]">Video · 12 min</span>
+                        <h3 class="text-lg font-semibold text-[#2D2D3F] mt-1 mb-2">Building Your First Dashboard</h3>
+                        <p class="text-sm text-[#6B6B80]">Step-by-step walkthrough of creating a real-time business dashboard from scratch.</p>
+                    </div>
+                </div>
+                <div class="clay-sm p-0 overflow-hidden group hover:scale-[1.02] transition-all duration-200">
+                    <div class="h-40 bg-gradient-to-br from-cyan-400 to-teal-300 flex items-center justify-center">
+                        <i data-lucide="play-circle" class="w-12 h-12 text-white/80"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-[#6C5CE7]">Video · 18 min</span>
+                        <h3 class="text-lg font-semibold text-[#2D2D3F] mt-1 mb-2">Integrating Payment Gateways</h3>
+                        <p class="text-sm text-[#6B6B80]">Connect Stripe, Square, and PayPal to process transactions through Clayflow.</p>
+                    </div>
+                </div>
+                <div class="clay-sm p-0 overflow-hidden group hover:scale-[1.02] transition-all duration-200">
+                    <div class="h-40 bg-gradient-to-br from-orange-400 to-yellow-300 flex items-center justify-center">
+                        <i data-lucide="play-circle" class="w-12 h-12 text-white/80"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold text-[#6C5CE7]">Video · 22 min</span>
+                        <h3 class="text-lg font-semibold text-[#2D2D3F] mt-1 mb-2">Automating Customer Reports</h3>
+                        <p class="text-sm text-[#6B6B80]">Learn how to set up scheduled email reports with custom metrics and visualizations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQs -->
+        <section id="faqs" class="reveal mb-8">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="clay w-10 h-10 flex items-center justify-center"><i data-lucide="help-circle" class="w-5 h-5 text-[#6C5CE7]"></i></div>
+                <h2 class="text-2xl font-bold text-[#2D2D3F]">Frequently Asked Questions</h2>
+            </div>
+            <div class="space-y-4 max-w-3xl">
+                <details class="clay-sm p-5 group open:shadow-[inset_4px_4px_8px_rgba(163,163,180,0.3),inset_-4px_-4px_8px_rgba(255,255,255,0.5)] transition-all">
+                    <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-[#2D2D3F]">
+                        <span>How does the free trial work?</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-[#6C5CE7] transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-4 text-sm text-[#6B6B80] leading-relaxed">Your free trial includes full access to all features for 14 days with no credit card required. After the trial, choose a plan that fits your needs or export your data at any time.</p>
+                </details>
+                <details class="clay-sm p-5 group open:shadow-[inset_4px_4px_8px_rgba(163,163,180,0.3),inset_-4px_-4px_8px_rgba(255,255,255,0.5)] transition-all">
+                    <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-[#2D2D3F]">
+                        <span>Can I integrate with existing tools?</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-[#6C5CE7] transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-4 text-sm text-[#6B6B80] leading-relaxed">Yes! Clayflow offers native integrations with over 200 popular tools including Slack, Salesforce, HubSpot, and more. Our REST API and webhooks allow custom integrations with any platform.</p>
+                </details>
+                <details class="clay-sm p-5 group open:shadow-[inset_4px_4px_8px_rgba(163,163,180,0.3),inset_-4px_-4px_8px_rgba(255,255,255,0.5)] transition-all">
+                    <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-[#2D2D3F]">
+                        <span>Is my data secure?</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-[#6C5CE7] transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-4 text-sm text-[#6B6B80] leading-relaxed">Absolutely. We use AES-256 encryption at rest and TLS 1.3 in transit. Our infrastructure is SOC 2 Type II certified and GDPR compliant. We also offer dedicated private cloud deployments for enterprise customers.</p>
+                </details>
+                <details class="clay-sm p-5 group open:shadow-[inset_4px_4px_8px_rgba(163,163,180,0.3),inset_-4px_-4px_8px_rgba(255,255,255,0.5)] transition-all">
+                    <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-[#2D2D3F]">
+                        <span>What kind of support do you offer?</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-[#6C5CE7] transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-4 text-sm text-[#6B6B80] leading-relaxed">All plans include email support with a 4-hour response time. Pro and Enterprise plans include priority live chat and phone support. Enterprise customers also get a dedicated account manager.</p>
+                </details>
+                <details class="clay-sm p-5 group open:shadow-[inset_4px_4px_8px_rgba(163,163,180,0.3),inset_-4px_-4px_8px_rgba(255,255,255,0.5)] transition-all">
+                    <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-[#2D2D3F]">
+                        <span>Can I cancel anytime?</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-[#6C5CE7] transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-4 text-sm text-[#6B6B80] leading-relaxed">Yes. You can cancel your subscription at any time with no penalties. Your data remains accessible in read-only mode for 30 days, giving you plenty of time to export everything you need.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-16 px-4 md:px-8 border-t border-white/30">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="clay-icon w-10 h-10 flex items-center justify-center"><i data-lucide="layers" class="w-5 h-5 text-white"></i></div>
+                        <span class="text-lg font-bold">Clayflow</span>
+                    </div>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">Business operations, beautifully unified.</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/#features" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Features</a></li>
+                        <li><a href="/#pricing" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Pricing</a></li>
+                        <li><a href="/integrations/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Integrations</a></li>
+                        <li><a href="/changelog/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Changelog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/about/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">About</a></li>
+                        <li><a href="/blog/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Blog</a></li>
+                        <li><a href="/careers/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Careers</a></li>
+                        <li><a href="/contact/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/docs/" class="text-sm text-[#6C5CE7] font-semibold transition-colors">Documentation</a></li>
+                        <li><a href="/api/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">API Reference</a></li>
+                        <li><a href="/community/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Community</a></li>
+                        <li><a href="/status/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Status</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/privacy/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Privacy</a></li>
+                        <li><a href="/terms/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Terms</a></li>
+                        <li><a href="/security/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clay-divider mb-8"></div>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-[#9B9BAF]">© 2026 Clayflow Inc. All rights reserved.</p>
+                <div class="flex items-center gap-4">
+                    <a href="https://twitter.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/x.svg" class="w-4 h-4" alt="Twitter"></a>
+                    <a href="https://github.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/github_light.svg" class="w-4 h-4" alt="GitHub"></a>
+                    <a href="https://linkedin.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/linkedin.svg" class="w-4 h-4" alt="LinkedIn"></a>
+                    <a href="https://youtube.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/youtube.svg" class="w-4 h-4" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        });
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+            });
+        });
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => { entry.target.classList.add('visible'); }, index * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => observer.observe(el));
+
+    </script>
+</body>
+</html>

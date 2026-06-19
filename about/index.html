@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — Clayflow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        clay: {
+                            bg: '#E8E8F0',
+                            card: '#F0F0F8',
+                            dark: '#D8D8E4',
+                            accent: '#6C5CE7',
+                            accentLight: '#A29BFE',
+                            warm: '#FD79A8',
+                            mint: '#00CEC9',
+                            sun: '#FDCB6E',
+                            text: '#2D2D3F',
+                            muted: '#6B6B80',
+                        }
+                    }
+                }
+            }
+        }
+        // Glow cursor
+        const glow = document.getElementById('cursorGlow');
+        let mx = -100, my = -100;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; glow.style.left = mx + 'px'; glow.style.top = my + 'px'; });
+        document.querySelectorAll('a, button, [role="button"], input, select, label, summary').forEach(el => {
+            el.addEventListener('mouseenter', () => glow.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => glow.classList.remove('hovering'));
+        });
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #E8E8F0; }
+        .clay { background: #F0F0F8; border-radius: 24px; box-shadow: 8px 8px 16px rgba(163,163,180,0.5), -8px -8px 16px rgba(255,255,255,0.8), inset 2px 2px 4px rgba(255,255,255,0.6), inset -2px -2px 4px rgba(163,163,180,0.3); }
+        .clay-sm { background: #F0F0F8; border-radius: 16px; box-shadow: 6px 6px 12px rgba(163,163,180,0.5), -6px -6px 12px rgba(255,255,255,0.8), inset 2px 2px 3px rgba(255,255,255,0.6), inset -1px -1px 3px rgba(163,163,180,0.25); }
+        .clay-xs { background: #F0F0F8; border-radius: 12px; box-shadow: 4px 4px 8px rgba(163,163,180,0.4), -4px -4px 8px rgba(255,255,255,0.7), inset 1px 1px 2px rgba(255,255,255,0.5), inset -1px -1px 2px rgba(163,163,180,0.2); }
+        .clay-pill { background: #F0F0F8; border-radius: 50px; box-shadow: 4px 4px 8px rgba(163,163,180,0.4), -4px -4px 8px rgba(255,255,255,0.7), inset 1px 1px 2px rgba(255,255,255,0.5), inset -1px -1px 2px rgba(163,163,180,0.2); }
+        .clay-accent { background: linear-gradient(135deg, #6C5CE7, #A29BFE); border-radius: 16px; box-shadow: 6px 6px 12px rgba(108,92,231,0.35), -6px -6px 12px rgba(162,155,254,0.2), inset 2px 2px 4px rgba(255,255,255,0.25), inset -2px -2px 4px rgba(108,92,231,0.3); }
+        .clay-warm { background: linear-gradient(135deg, #FD79A8, #FDCB6E); border-radius: 16px; box-shadow: 6px 6px 12px rgba(253,121,168,0.3), -6px -6px 12px rgba(253,203,110,0.15), inset 2px 2px 4px rgba(255,255,255,0.3), inset -2px -2px 4px rgba(253,121,168,0.25); }
+        .clay-mint { background: linear-gradient(135deg, #00CEC9, #81ECEC); border-radius: 16px; box-shadow: 6px 6px 12px rgba(0,206,201,0.3), -6px -6px 12px rgba(129,236,236,0.15), inset 2px 2px 4px rgba(255,255,255,0.3), inset -2px -2px 4px rgba(0,206,201,0.25); }
+        .clay-btn { background: linear-gradient(135deg, #6C5CE7, #7C6CF7); border-radius: 14px; box-shadow: 6px 6px 14px rgba(108,92,231,0.4), -4px -4px 10px rgba(255,255,255,0.6), inset 2px 2px 4px rgba(255,255,255,0.2), inset -2px -2px 4px rgba(108,92,231,0.3); transition: all 0.2s ease; }
+        .clay-btn:hover { box-shadow: 4px 4px 10px rgba(108,92,231,0.5), -3px -3px 8px rgba(255,255,255,0.5), inset 3px 3px 6px rgba(255,255,255,0.25), inset -2px -2px 4px rgba(108,92,231,0.35); transform: translateY(-1px); }
+        .clay-btn:active { transform: translateY(1px); }
+        .clay-btn-outline { background: #F0F0F8; border-radius: 14px; box-shadow: 6px 6px 14px rgba(163,163,180,0.5), -4px -4px 10px rgba(255,255,255,0.8), inset 2px 2px 4px rgba(255,255,255,0.6), inset -2px -2px 4px rgba(163,163,180,0.2); transition: all 0.2s ease; }
+        .clay-btn-outline:hover { transform: translateY(-1px); }
+        .clay-icon { background: linear-gradient(135deg, #6C5CE7, #A29BFE); border-radius: 16px; box-shadow: 4px 4px 8px rgba(108,92,231,0.3), -4px -4px 8px rgba(255,255,255,0.6), inset 1px 1px 3px rgba(255,255,255,0.3), inset -1px -1px 2px rgba(108,92,231,0.25); }
+        .clay-icon-warm { background: linear-gradient(135deg, #FD79A8, #FDCB6E); border-radius: 16px; box-shadow: 4px 4px 8px rgba(253,121,168,0.3), -4px -4px 8px rgba(255,255,255,0.6), inset 1px 1px 3px rgba(255,255,255,0.3), inset -1px -1px 2px rgba(253,121,168,0.25); }
+        .clay-icon-mint { background: linear-gradient(135deg, #00CEC9, #81ECEC); border-radius: 16px; box-shadow: 4px 4px 8px rgba(0,206,201,0.3), -4px -4px 8px rgba(255,255,255,0.6), inset 1px 1px 3px rgba(255,255,255,0.3), inset -1px -1px 2px rgba(0,206,201,0.25); }
+        .clay-icon-sun { background: linear-gradient(135deg, #FDCB6E, #F9CA24); border-radius: 16px; box-shadow: 4px 4px 8px rgba(253,203,110,0.3), -4px -4px 8px rgba(255,255,255,0.6), inset 1px 1px 3px rgba(255,255,255,0.3), inset -1px -1px 2px rgba(253,203,110,0.25); }
+        .clay-divider { height: 2px; background: #F0F0F8; box-shadow: inset 1px 1px 2px rgba(255,255,255,0.8), inset -1px -1px 2px rgba(163,163,180,0.3); border-radius: 2px; }
+        .clay-nav { background: rgba(240,240,248,0.85); backdrop-filter: blur(16px); border-radius: 20px; box-shadow: 6px 6px 14px rgba(163,163,180,0.45), -6px -6px 14px rgba(255,255,255,0.75), inset 1px 1px 3px rgba(255,255,255,0.6), inset -1px -1px 2px rgba(163,163,180,0.15); }
+        .clay-blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.3; pointer-events: none; }
+        .clay-float { animation: clayFloat 6s ease-in-out infinite; }
+        .clay-float-delay { animation: clayFloat 6s ease-in-out 2s infinite; }
+        .clay-float-delay2 { animation: clayFloat 6s ease-in-out 4s infinite; }
+        @keyframes clayFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        html { scroll-behavior: smooth; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #E8E8F0; }
+        ::-webkit-scrollbar-thumb { background: #D8D8E4; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C4C4D4; }
+        * { scrollbar-width: thin; scrollbar-color: #D8D8E4 #E8E8F0; }
+
+        /* Cursors */
+        a, button, [role="button"], input[type="submit"], label, summary, select, .cursor-point { cursor: pointer; }
+
+        /* Selection */
+        ::selection { background: #6C5CE7; color: #fff; }
+        ::-moz-selection { background: #6C5CE7; color: #fff; }
+
+        /* Glow cursor */
+        .cursor-glow {
+            position: fixed; pointer-events: none; z-index: 9999;
+            width: 80px; height: 80px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(113,113,122,0.4), rgba(113,113,122,0) 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.25s, height 0.25s, opacity 0.25s;
+            will-change: transform, left, top;
+        }
+        .cursor-glow.hovering { width: 140px; height: 140px; background: radial-gradient(circle, rgba(113,113,122,0.3), rgba(113,113,122,0) 70%); }
+
+        .sidebar-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 60;
+        }
+        .sidebar-overlay.active { opacity: 1; pointer-events: all; }
+        .mobile-sidebar {
+            position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+            background: #F0F0F8; z-index: 70;
+            transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -8px 0 24px rgba(163,163,180,0.4);
+            display: flex; flex-direction: column; padding: 1.5rem;
+        }
+        .mobile-sidebar.active { transform: translateX(0); }
+        .nav-active { color: #6C5CE7 !important; font-weight: 600 !important; }
+    </style>
+</head>
+<body class="min-h-screen text-[#2D2D3F] overflow-x-hidden">
+    <div class="clay-blob w-[500px] h-[500px] bg-purple-300 top-[-100px] left-[-150px] fixed"></div>
+    <div class="clay-blob w-[400px] h-[400px] bg-pink-200 top-[30%] right-[-100px] fixed"></div>
+    <div class="clay-blob w-[350px] h-[350px] bg-cyan-200 bottom-[-50px] left-[20%] fixed"></div>
+
+    <nav class="sticky top-4 z-50 mx-4 md:mx-8 mt-4">
+        <div class="clay-nav max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2">
+                <div class="clay-icon w-10 h-10 flex items-center justify-center">
+                    <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="text-xl font-bold text-[#2D2D3F]">Clayflow</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="/#features" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Features</a>
+                <a href="/#how-it-works" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">How It Works</a>
+                <a href="/#pricing" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Pricing</a>
+                <a href="/#testimonials" class="text-sm font-medium text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Testimonials</a>
+            </div>
+            <div class="hidden md:flex items-center gap-3">
+                <a href="/login/" class="clay-btn-outline px-5 py-2.5 text-sm font-semibold text-[#2D2D3F]">Log In</a>
+                <a href="/signup/" class="clay-btn px-5 py-2.5 text-sm font-semibold text-white">Start Free Trial</a>
+            </div>
+            <button id="menuToggle" class="md:hidden clay-xs p-2">
+                <i data-lucide="menu" class="w-5 h-5 text-[#2D2D3F]"></i>
+            </button>
+        </div>
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebarOverlay" class="sidebar-overlay md:hidden"></div>
+        <!-- Mobile Sidebar -->
+        <div id="mobileSidebar" class="mobile-sidebar md:hidden">
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-2">
+                    <div class="clay-icon w-9 h-9 flex items-center justify-center">
+                        <i data-lucide="layers" class="w-4.5 h-4.5 text-white"></i>
+                    </div>
+                    <span class="text-lg font-bold">Clayflow</span>
+                </div>
+                <button id="sidebarClose" class="clay-xs p-2">
+                    <i data-lucide="x" class="w-5 h-5 text-[#2D2D3F]"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-3 flex-1">
+                <a href="/" class="clay-sm px-4 py-3 text-sm font-medium text-[#2D2D3F] flex items-center gap-3"><i data-lucide="home" class="w-4 h-4 text-[#6C5CE7]"></i>Home</a>
+                <a href="/#features" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="sparkles" class="w-4 h-4 text-[#6B6B80]"></i>Features</a>
+                <a href="/#how-it-works" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="route" class="w-4 h-4 text-[#6B6B80]"></i>How It Works</a>
+                <a href="/#pricing" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="tag" class="w-4 h-4 text-[#6B6B80]"></i>Pricing</a>
+                <a href="/#testimonials" class="px-4 py-3 text-sm font-medium text-[#6B6B80] hover:text-[#2D2D3F] transition-colors flex items-center gap-3"><i data-lucide="heart" class="w-4 h-4 text-[#6B6B80]"></i>Testimonials</a>
+            </nav>
+            <div class="clay-divider my-4"></div>
+            <div class="flex flex-col gap-3">
+                <a href="/login/" class="clay-btn-outline w-full py-3 text-sm font-semibold text-[#2D2D3F] text-center">Log In</a>
+                <a href="/signup/" class="clay-btn w-full py-3 text-sm font-semibold text-white text-center">Start Free Trial</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative pt-24 pb-16 md:pt-32 md:pb-20 px-4 md:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="clay-pill inline-flex items-center gap-2 px-5 py-2.5 mb-8 reveal">
+                <i data-lucide="info" class="w-4 h-4 text-[#6C5CE7]"></i>
+                <span class="text-xs font-semibold text-[#6B6B80] uppercase tracking-wider">About Clayflow</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-[#2D2D3F] mb-6 reveal">
+                We Believe Business Software<br>
+                <span class="bg-gradient-to-r from-[#6C5CE7] via-[#A29BFE] to-[#00CEC9] bg-clip-text text-transparent">Should Be Beautiful</span>
+            </h1>
+            <p class="text-lg md:text-xl font-light text-[#6B6B80] max-w-2xl mx-auto mb-6 leading-relaxed reveal">
+                Clayflow was founded in 2022 by three engineers who were tired of ugly, bloated business tools. We set out to build a platform that feels as good as it works — where design and function are one.
+            </p>
+        </div>
+    </section>
+
+    <!-- Story -->
+    <section class="py-16 px-4 md:px-8">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+            <div class="reveal">
+                <div class="clay-accent inline-flex items-center gap-2 px-4 py-2 mb-5">
+                    <i data-lucide="scroll-text" class="w-4 h-4 text-white"></i>
+                    <span class="text-xs font-semibold text-white uppercase tracking-wider">Our Story</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">From Frustration to Innovation</h2>
+                <p class="text-sm text-[#6B6B80] leading-relaxed mb-4">Every member of our founding team had spent years wrestling with clunky enterprise software that looked like it was designed in 2005. Dashboards that required a manual to navigate. Workflows that took more clicks than they saved. Notifications that never quite told you what you needed to know.</p>
+                <p class="text-sm text-[#6B6B80] leading-relaxed">So we built Clayflow — a workspace that combines the power of enterprise-grade tools with the polish and simplicity of modern consumer apps. No learning curve, no bloat, just a calm, capable command center for your business.</p>
+            </div>
+            <div class="clay p-6 md:p-10 reveal clay-float">
+                <div class="bg-[#E8E8F0] rounded-[18px] p-6" style="box-shadow: inset 4px 4px 10px rgba(163,163,180,0.5), inset -4px -4px 10px rgba(255,255,255,0.6);">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-3 h-3 rounded-full bg-[#FD79A8]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#FDCB6E]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#00CEC9]"></div>
+                        <span class="text-xs text-[#9B9BAF] ml-2 font-medium">clayflow.com/about</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="clay-xs p-3 flex items-center gap-3">
+                            <i data-lucide="calendar" class="w-4 h-4 text-[#6C5CE7]"></i>
+                            <span class="text-xs text-[#6B6B80]">Founded in 2022</span>
+                        </div>
+                        <div class="clay-xs p-3 flex items-center gap-3">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-[#FD79A8]"></i>
+                            <span class="text-xs text-[#6B6B80]">Headquarters in San Francisco, CA</span>
+                        </div>
+                        <div class="clay-xs p-3 flex items-center gap-3">
+                            <i data-lucide="users" class="w-4 h-4 text-[#00CEC9]"></i>
+                            <span class="text-xs text-[#6B6B80]">85 team members across 12 countries</span>
+                        </div>
+                        <div class="clay-xs p-3 flex items-center gap-3">
+                            <i data-lucide="globe" class="w-4 h-4 text-[#FDCB6E]"></i>
+                            <span class="text-xs text-[#6B6B80]">Serving customers in 40+ countries</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Values -->
+    <section class="py-20 md:py-28 px-4 md:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <div class="clay-pill inline-flex items-center gap-2 px-4 py-2 mb-5">
+                    <i data-lucide="heart-handshake" class="w-4 h-4 text-[#FD79A8]"></i>
+                    <span class="text-xs font-semibold text-[#6B6B80] uppercase tracking-wider">Our Mission & Values</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">What Drives Us</h2>
+                <p class="text-lg font-light text-[#6B6B80] max-w-xl mx-auto">Every decision we make is guided by these core principles.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="clay p-8 reveal clay-float">
+                    <div class="clay-icon w-14 h-14 flex items-center justify-center mb-5">
+                        <i data-lucide="sparkles" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Craft Over Cargo</h3>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">We obsess over every pixel, every micro-interaction, every word. Software should feel delightful, not dutiful.</p>
+                </div>
+                <div class="clay p-8 reveal clay-float-delay">
+                    <div class="clay-icon-warm w-14 h-14 flex items-center justify-center mb-5">
+                        <i data-lucide="users" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">People First</h3>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">Our customers, our team, our community — we build for humans. Empathy is our north star.</p>
+                </div>
+                <div class="clay p-8 reveal clay-float-delay2">
+                    <div class="clay-icon-mint w-14 h-14 flex items-center justify-center mb-5">
+                        <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Radical Simplicity</h3>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">Every feature must earn its place. If it doesn't make life simpler, it doesn't ship.</p>
+                </div>
+                <div class="clay p-8 reveal">
+                    <div class="clay-icon-sun w-14 h-14 flex items-center justify-center mb-5">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Trust by Default</h3>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">Security isn't an afterthought. We earn your trust with transparency, privacy, and enterprise-grade protection.</p>
+                </div>
+                <div class="clay p-8 reveal">
+                    <div class="clay-icon w-14 h-14 flex items-center justify-center mb-5">
+                        <i data-lucide="globe" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Global by Design</h3>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">Remote-first, culturally inclusive, and built for teams that span time zones and continents.</p>
+                </div>
+                <div class="clay p-8 reveal">
+                    <div class="clay-icon-warm w-14 h-14 flex items-center justify-center mb-5">
+                        <i data-lucide="trending-up" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Continuous Evolution</h3>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">We ship weekly, learn constantly, and never settle. The best version of Clayflow is always ahead.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Banner -->
+    <section class="py-16 px-4 md:px-8">
+        <div class="max-w-4xl mx-auto clay-accent p-10 md:p-14 reveal">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold mb-1">10K+</div>
+                    <div class="text-sm opacity-80">Active Teams</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold mb-1">99.9%</div>
+                    <div class="text-sm opacity-80">Uptime SLA</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold mb-1">4.9/5</div>
+                    <div class="text-sm opacity-80">User Rating</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold mb-1">3.2M</div>
+                    <div class="text-sm opacity-80">Tasks Automated</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="py-20 md:py-28 px-4 md:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <div class="clay-pill inline-flex items-center gap-2 px-4 py-2 mb-5">
+                    <i data-lucide="users" class="w-4 h-4 text-[#6C5CE7]"></i>
+                    <span class="text-xs font-semibold text-[#6B6B80] uppercase tracking-wider">Meet the Team</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">The People Behind Clayflow</h2>
+                <p class="text-lg font-light text-[#6B6B80] max-w-xl mx-auto">A diverse team of builders, designers, and dreamers united by a shared mission.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="clay p-6 text-center reveal">
+                    <img src="https://picsum.photos/seed/ceo/120/120.jpg" class="w-24 h-24 rounded-full object-cover mx-auto mb-4 clay-xs" alt="Alex">
+                    <h3 class="text-base font-semibold">Alex Chen</h3>
+                    <p class="text-xs text-[#6B6B80] mb-3">CEO & Co-Founder</p>
+                    <p class="text-xs text-[#9B9BAF] leading-relaxed">Previously led product at Notion. Obsessed with making complex things simple.</p>
+                </div>
+                <div class="clay p-6 text-center reveal">
+                    <img src="https://picsum.photos/seed/cto/120/120.jpg" class="w-24 h-24 rounded-full object-cover mx-auto mb-4 clay-xs" alt="Priya">
+                    <h3 class="text-base font-semibold">Priya Patel</h3>
+                    <p class="text-xs text-[#6B6B80] mb-3">CTO & Co-Founder</p>
+                    <p class="text-xs text-[#9B9BAF] leading-relaxed">Ex-Google engineer, Rust enthusiast, and builder of systems that never break.</p>
+                </div>
+                <div class="clay p-6 text-center reveal">
+                    <img src="https://picsum.photos/seed/design/120/120.jpg" class="w-24 h-24 rounded-full object-cover mx-auto mb-4 clay-xs" alt="Jordan">
+                    <h3 class="text-base font-semibold">Jordan Kim</h3>
+                    <p class="text-xs text-[#6B6B80] mb-3">CDO & Co-Founder</p>
+                    <p class="text-xs text-[#9B9BAF] leading-relaxed">Award-winning designer from Figma. Believes every interface can spark joy.</p>
+                </div>
+                <div class="clay p-6 text-center reveal">
+                    <img src="https://picsum.photos/seed/eng/120/120.jpg" class="w-24 h-24 rounded-full object-cover mx-auto mb-4 clay-xs" alt="Morgan">
+                    <h3 class="text-base font-semibold">Morgan Liu</h3>
+                    <p class="text-xs text-[#6B6B80] mb-3">VP of Engineering</p>
+                    <p class="text-xs text-[#9B9BAF] leading-relaxed">20 years scaling teams at Amazon and Stripe. AI and infrastructure wizard.</p>
+                </div>
+                <div class="clay p-6 text-center reveal">
+                    <img src="https://picsum.photos/seed/marketing/120/120.jpg" class="w-24 h-24 rounded-full object-cover mx-auto mb-4 clay-xs" alt="Sam">
+                    <h3 class="text-base font-semibold">Sam Rivera</h3>
+                    <p class="text-xs text-[#6B6B80] mb-3">VP of Marketing</p>
+                    <p class="text-xs text-[#9B9BAF] leading-relaxed">Storyteller who built GTM motions at Canva and Linear. Growth by delight.</p>
+                </div>
+                <div class="clay p-6 text-center reveal">
+                    <img src="https://picsum.photos/seed/support/120/120.jpg" class="w-24 h-24 rounded-full object-cover mx-auto mb-4 clay-xs" alt="Taylor">
+                    <h3 class="text-base font-semibold">Taylor Brooks</h3>
+                    <p class="text-xs text-[#6B6B80] mb-3">Head of Customer Success</p>
+                    <p class="text-xs text-[#9B9BAF] leading-relaxed">Customer advocate. Ensures every user gets a hero's welcome and rapid support.</p>
+                </div>
+                <div class="clay p-6 text-center reveal">
+                    <img src="https://picsum.photos/seed/data/120/120.jpg" class="w-24 h-24 rounded-full object-cover mx-auto mb-4 clay-xs" alt="Aisha">
+                    <h3 class="text-base font-semibold">Aisha Okafor</h3>
+                    <p class="text-xs text-[#6B6B80] mb-3">Head of Data Science</p>
+                    <p class="text-xs text-[#9B9BAF] leading-relaxed">PhD in ML from Stanford. Builds the AI that powers Clayflow Insights.</p>
+                </div>
+                <div class="clay p-6 text-center reveal">
+                    <img src="https://picsum.photos/seed/ops/120/120.jpg" class="w-24 h-24 rounded-full object-cover mx-auto mb-4 clay-xs" alt="Marcus">
+                    <h3 class="text-base font-semibold">Marcus Johansson</h3>
+                    <p class="text-xs text-[#6B6B80] mb-3">Head of Operations</p>
+                    <p class="text-xs text-[#9B9BAF] leading-relaxed">Ex-BCG consultant. Keeps the machine running so everyone else can build.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 md:py-28 px-4 md:px-8">
+        <div class="max-w-4xl mx-auto clay-accent p-12 md:p-16 text-center reveal">
+            <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">Want to Shape the Future<br>of Business Software?</h2>
+            <p class="text-lg text-white/70 max-w-xl mx-auto mb-8">We're always looking for talented people who care deeply about craft. Join us.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="/careers/" class="clay-btn-outline px-8 py-4 text-base font-semibold text-[#2D2D3F]">View Open Positions</a>
+                <a href="/contact/" class="px-8 py-4 text-base font-semibold text-white/90 hover:text-white flex items-center gap-2 transition-colors">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-4 md:px-8 border-t border-white/30">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="clay-icon w-10 h-10 flex items-center justify-center"><i data-lucide="layers" class="w-5 h-5 text-white"></i></div>
+                        <span class="text-lg font-bold">Clayflow</span>
+                    </div>
+                    <p class="text-sm text-[#6B6B80] leading-relaxed">Business operations, beautifully unified.</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/#features" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Features</a></li>
+                        <li><a href="/#pricing" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Pricing</a></li>
+                        <li><a href="/integrations/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Integrations</a></li>
+                        <li><a href="/changelog/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Changelog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/about/" class="text-sm text-[#6C5CE7] font-semibold transition-colors">About</a></li>
+                        <li><a href="/blog/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Blog</a></li>
+                        <li><a href="/careers/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Careers</a></li>
+                        <li><a href="/contact/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/docs/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Documentation</a></li>
+                        <li><a href="/api/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">API Reference</a></li>
+                        <li><a href="/community/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Community</a></li>
+                        <li><a href="/status/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Status</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="/privacy/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Privacy</a></li>
+                        <li><a href="/terms/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Terms</a></li>
+                        <li><a href="/security/" class="text-sm text-[#6B6B80] hover:text-[#6C5CE7] transition-colors">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clay-divider mb-8"></div>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-[#9B9BAF]">© 2026 Clayflow Inc. All rights reserved.</p>
+                <div class="flex items-center gap-4">
+                    <a href="https://twitter.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/x.svg" class="w-4 h-4" alt="Twitter"></a>
+                    <a href="https://github.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/github_light.svg" class="w-4 h-4" alt="GitHub"></a>
+                    <a href="https://linkedin.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/linkedin.svg" class="w-4 h-4" alt="LinkedIn"></a>
+                    <a href="https://youtube.com" class="clay-xs w-9 h-9 flex items-center justify-center hover:scale-105 transition-transform"><img src="https://svgl.app/library/youtube.svg" class="w-4 h-4" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        });
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+            });
+        });
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => { entry.target.classList.add('visible'); }, index * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => observer.observe(el));
+
+    </script>
+</body>
+</html>
